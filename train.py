@@ -68,8 +68,8 @@ def main(args):
 
     logger.info(f'[+] Load Dataset')
 
-    train_ds = Dataset.from_json(os.path.join('/content/drive/MyDrive/github/모두의말뭉치/',"resource/data/nikluge-ea-2023-train.jsonl"))
-    valid_ds = Dataset.from_json(os.path.join('/content/drive/MyDrive/github/모두의말뭉치/',"resource/data/nikluge-ea-2023-dev.jsonl"))
+    train_ds = Dataset.from_json(os.path.join('/kaggle/working/modu_mal/',"resource/data/nikluge-ea-2023-train.jsonl"))
+    valid_ds = Dataset.from_json(os.path.join('/kaggle/working/modu_mal/vvvv',"resource/data/nikluge-ea-2023-dev.jsonl"))
 
     # 데이터셋을 변환합니다.
     def process_data(item):
