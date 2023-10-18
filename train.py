@@ -19,6 +19,8 @@ from datasets import Dataset
 from sklearn.metrics import f1_score, roc_auc_score, accuracy_score
 
 
+os.environ["WANDB_DISABLED"] = "true"
+
 # fmt: off
 parser = argparse.ArgumentParser(prog="train", description="Train Table to Text with BART")
 
