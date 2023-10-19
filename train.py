@@ -5,6 +5,8 @@ import logging
 import os
 import sys
 import re
+import emoji
+from soynlp.normalizer import *
 
 import torch
 import numpy as np
@@ -77,7 +79,25 @@ def main(args):
     def process_data(item):
         form = item['input']['form']
         target = item['input']['target']
-        form = re.sub(r'[^\w\s\d가-힣]', '', form)
+        form = emoji.core.replace_emoji(form)
+        form = form.replace('&others&','')
+        form = re.sub(r'&name\d&', '', form)
+        form = re.sub(r'&account\d&', '', form)
+        form = form.replace('&',' 그리고 ')
+        form = repeat_normalize(form)
+        form = re.sub(r'!+', '!', form)
+        form = re.sub(r'\?+', '?', form)
+        form = form.replace('ㄹㅇ',' 진짜 ')
+        form = form.replace('ㅅㅂ','  ㅅㅂ ')
+        form = form.replace('ㅠㅠ','  ㅜㅜ ')
+        form = form.replace('ㅜㅜ','  ㅜㅜ ')
+        form = form.replace('ㅁㅊ','  ㅁㅊ ')
+        form = form.replace('#',' ')
+        form = form.replace('ᐟ','')
+        form = form.replace('ᰔ','')
+        form = form.replace('_','')
+        form = re.sub(r'[^\w\s?!()]', '', form)
+        form = form.replace('  ',' ')
         item['input'] = {'form': form, 'target': target}
         return item
 
