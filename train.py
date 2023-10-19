@@ -104,6 +104,13 @@ def main(args):
     train_ds = train_ds.map(process_data)
     valid_ds = valid_ds.map(process_data)
 
+    # 데이터 길이가 10 이상인 항목만 유지하는 함수
+    def filter_data(item):
+        form = item['input']['form']
+        return len(form) >= 10
+    train_ds = train_ds.filter(filter_data)
+    valid_ds = valid_ds.filter(filter_data)
+
     labels = list(train_ds["output"][0].keys())
     id2label = {idx:label for idx, label in enumerate(labels)}
     label2id = {label:idx for idx, label in enumerate(labels)}
